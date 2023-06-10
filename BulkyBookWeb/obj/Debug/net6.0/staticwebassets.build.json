@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "JiN95Zlu4NnrTw0qZUhmZE82tLOaSg6ykTftzBzXhww=",
+  "Hash": "ILJ7qPL5h3EBwyoFGIJCZRlDepKF+/mIQRkDhT/Qpp0=",
   "Source": "BulkyBookWeb",
   "BasePath": "_content/BulkyBookWeb",
   "Mode": "Default",
@@ -49,6 +49,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\.NET Core 6 Projects\\BulkyBook\\BulkyBookWeb\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\BulkyBookWeb.bundle.scp.css"
+    },
+    {
+      "Identity": "D:\\.NET Core 6 Projects\\BulkyBook\\BulkyBookWeb\\wwwroot\\css\\custom.css",
+      "SourceId": "BulkyBookWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\.NET Core 6 Projects\\BulkyBook\\BulkyBookWeb\\wwwroot\\",
+      "BasePath": "_content/BulkyBookWeb",
+      "RelativePath": "css/custom.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\custom.css"
     },
     {
       "Identity": "D:\\.NET Core 6 Projects\\BulkyBook\\BulkyBookWeb\\wwwroot\\css\\site.css",

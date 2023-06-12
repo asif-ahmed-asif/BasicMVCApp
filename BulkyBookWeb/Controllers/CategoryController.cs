@@ -11,8 +11,13 @@ namespace BulkyBookWeb.Controllers
         public CategoryController(ApplicationDbContext db) {
             _db = db;
         }
-        public IActionResult Index()
+        public IActionResult Index(string search)
         {
+            if (search != null)
+            {
+                IEnumerable<Category> searchCategories = _db.Categories.Where(s => s.Name.StartsWith(search));
+                return View(searchCategories);
+            }
             //var categories = _db.Categories.ToList();
 
             //strongly typed

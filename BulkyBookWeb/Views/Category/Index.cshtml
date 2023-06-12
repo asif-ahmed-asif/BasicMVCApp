@@ -3,7 +3,18 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="mx-auto col-10 col-md-8 col-lg-6">
+            <div class="form-group">
+                <form asp-action="Index" class="d-flex">
+                    <input class="form-control me-sm-2" name="search" type="search" placeholder="Category Name">
+                    <button class="btn btn-secondary my-2 my-sm-0" style="width:150px" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">

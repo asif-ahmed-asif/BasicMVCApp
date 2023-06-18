@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using BulkyBookWeb.Models;
 using BulkyBookWeb.Data;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BulkyBookWeb.Controllers
 {
@@ -19,41 +20,73 @@ namespace BulkyBookWeb.Controllers
 
         public IActionResult Registration()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
         [HttpPost]
         public IActionResult Registration(User user)
         {
-            if(user.Email != null)
+            var email = _db.Users.Where(e => e.Email == user.Email);
+            if (email.Count() > 0)
             {
-                var email = _db.Users.Where(e => e.Email == user.Email);
-                if(email.Count() > 0)
-                {
-                    ModelState.AddModelError("Email", "This Email is already exists!");
-                }
+                ModelState.AddModelError("Email", "This Email is already exists!");
             }
+
             if (ModelState.IsValid)
             {
                 _db.Users.Add(user);
                 _db.SaveChanges();
                 TempData["success"] = "User successfully Registered";
-                return RedirectToAction("Registration");
+                this.cookieSetUp(user);
+                return RedirectToAction("Index", "Home");
             }
             return View();
         }
 
         public IActionResult Login()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Login(User user)
+        public IActionResult Login(Login login)
         {
-            if (ModelState.IsValid)
+            var valid = _db.Users.Where(v => v.Email == login.LEmail && v.Password == login.LPassword);
+            if (valid.Count() > 0)
             {
-                
+                var user = new User()
+                {
+                    Email = login.LEmail,
+                    Password = login.LPassword,
+                };
+                this.cookieSetUp(user);
+                return RedirectToAction("Index", "Home");
             }
+            TempData["LoginError"] = "Wrong Email or Password!";
             return View();
+        }
+        [Authorize]
+        public async Task<IActionResult> LogOut()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login");
+        }
+
+        private async void cookieSetUp(User user)
+        {
+            var claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Email)
+            };
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(identity);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(principal));
         }
     }
 }

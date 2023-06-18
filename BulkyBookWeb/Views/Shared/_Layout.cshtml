@@ -24,9 +24,14 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Category" asp-action="Index">Category</a>
                         </li>
+                           
+                        }
+                        
                         
                         @*<li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
@@ -39,13 +44,39 @@
                             </div>
                         </li>*@
                     </ul>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="text-end" role="group">
+
+                            <a asp-controller="Access" asp-action="LogOut" class="btn btn-primary" style="width:130px">
+                                Log Out
+                            </a>
+                        </div>
+
+                    }
                 </div>
             </div>
         </nav>
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            <partial name="_Notifications"/>
+            <div>
+                <partial name="_Notifications" />
+            </div>
+           
+            @if (!User.Identity.IsAuthenticated)
+            {
+            <div class="container p-3">
+                <div class="text-end" role="group">
+                    <a asp-controller="Access" asp-action="Registration" class="btn btn-success">
+                        Registration
+                    </a>
+                        <a asp-controller="Access" asp-action="Login" class="btn btn-success" style="width:110px">
+                        Login
+                    </a>
+                </div>
+            </div>
+            }
             @RenderBody()
         </main>
     </div>

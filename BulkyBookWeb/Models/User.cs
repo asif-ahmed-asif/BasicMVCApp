@@ -12,15 +12,16 @@ namespace BulkyBookWeb.Models
         [Required]
         public string Name { get; set; }
         [Required]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Enter a valid Email address!")]
         public string Email { get; set; }
         [Required]
         [DataType(DataType.Password)]
+        [MinLength(6, ErrorMessage = "Password must be at least 6 characters!")]
         public string Password { get; set; }
         [Required]
         [DataType(DataType.Password)]
         [DisplayName("Confirm Password")]
-        [Compare("Password")]
+        [Compare("Password", ErrorMessage = "Password and Confirm Password does not match!")]
         [NotMapped]
         public string ConfirmPassword { get; set; }
     }

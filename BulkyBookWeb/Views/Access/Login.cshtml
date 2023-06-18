@@ -1,0 +1,37 @@
+﻿@model BulkyBookWeb.Models.Login
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="pt-3">
+    <div class="row pt-4">
+        <div class="mx-auto col-10 col-md-8 col-lg-6">
+            <h2 class="text-primary">Login</h2>
+            <hr />
+            <form asp-action="Login" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <h2 class="text-danger">
+                    @TempData["LoginError"]
+                </h2>
+                <div class="form-group">
+                    <label asp-for="LEmail" class="control-label"></label>
+                    <input asp-for="LEmail" class="form-control" />
+                    <span asp-validation-for="LEmail" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LPassword" class="control-label"></label>
+                    <input asp-for="LPassword" class="form-control" />
+                    <span asp-validation-for="LPassword" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Login" class="btn btn-primary" style="width:150px" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+   }

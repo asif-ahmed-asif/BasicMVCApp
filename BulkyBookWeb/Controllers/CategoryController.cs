@@ -39,6 +39,11 @@ namespace BulkyBookWeb.Controllers
             {
                 ModelState.AddModelError("Name", "The Display Order can not be same as Name");
             }
+            var existedCategory = _db.Categories.Where(e => e.Name == category.Name);
+            if (existedCategory.Count() > 0)
+            {
+                ModelState.AddModelError("Name", "This Name is already exists!");
+            }
             if (ModelState.IsValid)
             {
                 _db.Categories.Add(category);
@@ -71,6 +76,11 @@ namespace BulkyBookWeb.Controllers
             if(category.Name == category.DisplayOrder.ToString())
             {
                 ModelState.AddModelError("Name", "The Display Order can not be same as Name");
+            }
+            var existedCategory = _db.Categories.Where(e => e.Name == category.Name);
+            if (existedCategory.Count() > 0)
+            {
+                ModelState.AddModelError("Name", "This Name is already exists!");
             }
             if (ModelState.IsValid)
             {
